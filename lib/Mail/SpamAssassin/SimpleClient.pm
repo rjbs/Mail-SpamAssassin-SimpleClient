@@ -115,11 +115,11 @@ sub check {
 
   my ($report) = ($report_msg->parts)[0];
   my $past_header;
-  for my $line (split /\n/, $report->body) {
-    next if not($past_header) and not($line =~ /^\s*pts/);
-    $past_header = 1;
-    $message->add_header('X-Listbox-Spam-Report' => $line);
-  }
+#  for my $line (split /\n/, $report->body) {
+#    next if not($past_header) and not($line =~ /^\s*pts/);
+#    $past_header = 1;
+#    $message->add_header('X-Listbox-Spam-Report' => $line);
+#  }
 
   return Mail::SpamAssassin::SimpleClient::Result->new({
     # I admit it.  I am paranoid about list context on rhs of fat comma.
