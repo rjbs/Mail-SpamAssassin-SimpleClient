@@ -1,0 +1,2 @@
+This is the README for Mail-SpamAssassin-SimpleClient.  It provides a simple,
+somewhat naive interface for checking mail against a spamd.
