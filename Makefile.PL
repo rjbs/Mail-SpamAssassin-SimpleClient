@@ -3,15 +3,12 @@ use warnings;
 
 use inc::Module::Install;
 
-name          ('App-Addex');
+name          ('Mail-SpamAssassin-SimpleClient');
 author        ('Ricardo Signes <rjbs@cpan.org>');
 license       ('perl');
-version_from  ('lib/App/Addex/Apple.pm');
+version_from  ('lib/Mail/SpamAssassin/SimpleClient.pm');
 
-install_script('bin/addex');
-
-requires('Mac::Glue'        => 0.00); # no idea what the minimum version is
-requires('Sub::Install'     => 0.91); # for Params::Util use
-requires('Getopt::Long::Descriptive' => 0.06); # for %c in format
+requires('Email::MIME'        => 1); # no idea what the minimum version is
+requires('Mail::SpamAssassin' => 3); # no idea what the minimum version is
 
 WriteAll();
