@@ -24,6 +24,15 @@ version 0.001
 
   die "It's horrible, horrible spam!" if $spamc->check($message)->is_spam;
 
+=head1 WARNING
+
+B<Achtung!>
+
+This module is still in its infancy.  Its interface will probably change
+somewhat, especially if some changes are made to the spamd protocol to make
+this module awesomer.  Please don't rely on it.  Just play with it and try to
+help figure out how to make it great.
+
 =head1 DESCRIPTION
 
 Mail::SpamAssassin is a great, free tool for identifying spam messages.  It is
