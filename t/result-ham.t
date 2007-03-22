@@ -2,7 +2,12 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
+use Test::More;
+
+plan skip_all => "set PERL_SIMPLECLIENT_TEST to run these tests"
+  unless $ENV{PERL_SIMPLECLIENT_TEST};
+
+plan 'no_plan';
 
 use Email::Simple;
 
@@ -13,4 +18,7 @@ my $msg = do { local $/; <$msg_fh>; };
 
 my $email = Email::Simple->new($msg);
 
-Mail::SpamAssassin::SimpleClient->new->check($email);
+ok(
+  ! Mail::SpamAssassin::SimpleClient->new->check($email)->is_spam,
+  "yup, this message is ham",
+);

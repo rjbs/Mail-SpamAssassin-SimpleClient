@@ -6,6 +6,7 @@ package Mail::SpamAssassin::SimpleClient;
 use Carp ();
 use Email::MIME;
 use Mail::SpamAssassin::Client;
+use Mail::SpamAssassin::SimpleClient::Result;
 
 =head1 NAME
 
@@ -99,37 +100,58 @@ sub check {
 #   NO_REAL_NAME,NO_RECEIVED,NO_RELAYS autolearn=no version=3.1.0
 #   X-Spam-Level: **************************************************
 
-  use Data::Dumper;
-  warn Dumper($response);
+  # use Data::Dumper;
+  # warn Dumper($response);
 
   my $report_msg = Email::MIME->new($response->{message});
 
   # We can't just look for tests=\S because when the tests wrap and are
   # unfolded, a space is introduced betwen tests.
   my $status = $report_msg->header('X-Spam-Status');
+
+  $status =~ s/,\s([A-Z])/,$1/g;
   my ($tests) = $status =~ /tests=(.+?)(?:\s[a-z]|$)/;
+  my ($version) = $status =~ /version=(\S+)/;
+
+  my @tests = split /,/, $tests;
 
   # isspam will be True or False
   # score
   # threshold
 
-  my ($report) = ($report_msg->parts)[0];
-  my $past_header;
-#  for my $line (split /\n/, $report->body) {
-#    next if not($past_header) and not($line =~ /^\s*pts/);
-#    $past_header = 1;
-#    $message->add_header('X-Listbox-Spam-Report' => $line);
-#  }
+  my %test_score;
+
+  if ($response->{isspam} eq 'True') {
+    my ($report) = ($report_msg->parts)[0];
+
+    my $past_header;
+    for my $line (split /\n/, $report->body) {
+      next if not($past_header) and not($line =~ /^\s*---- -/);
+      $past_header = 1, next if not $past_header;
+
+      my ($score, $name) = $line =~ /\s*(-?[\d.]+)\s+(\S+)/;
+      $test_score{ $name } = $score;
+    }
+  }
 
   return Mail::SpamAssassin::SimpleClient::Result->new({
-    # I admit it.  I am paranoid about list context on rhs of fat comma.
-    is_spam => scalar($response->{isspam} eq 'True'),
+    is_spam    => $response->{score} > $response->{threshold},
+    score      => $response->{score},
+    threshold  => $response->{threshold},
+    version    => $version,
+
+    tests      => %test_score
+                ? \%test_score
+                : { map { $_ => undef } @tests },
   });
 }
 
 =head1 TODO
 
 Support spamd-less operation.
+
+Get the protocol to support "always rewrite" or another way to always get
+scores.
 
 =head1 AUTHOR
 
