@@ -15,6 +15,10 @@ version 0.001
 
  $Id$
 
+=cut
+
+our $VERSION = '0.001';
+
 =head1 METHODS
 
 =head2 new

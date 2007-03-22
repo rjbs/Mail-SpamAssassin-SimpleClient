@@ -18,6 +18,10 @@ version 0.001
 
  $Id$
 
+=cut
+
+our $VERSION = '0.001';
+
 =head1 SYNOPSIS
 
   my $spamc = Mail::SpamAssassin::Simpleclient->new;
