@@ -116,11 +116,11 @@ sub check {
   # use Data::Dumper;
   # warn Dumper($response);
 
-  my $report_msg = Email::MIME->new($response->{message});
+  my $response_email = Email::MIME->new($response->{message});
 
   # We can't just look for tests=\S because when the tests wrap and are
   # unfolded, a space is introduced betwen tests.
-  my $status = $report_msg->header('X-Spam-Status');
+  my $status = $response_email->header('X-Spam-Status');
 
   $status =~ s/,\s([A-Z])/,$1/g;
   my ($tests) = $status =~ /tests=(.+?)(?:\s[a-z]|$)/;
@@ -135,7 +135,7 @@ sub check {
   my %test_score;
 
   if ($response->{isspam} eq 'True') {
-    my ($report) = ($report_msg->parts)[0];
+    my ($report) = ($response_email->parts)[0];
 
     my $past_header;
     for my $line (split /\n/, $report->body) {
@@ -152,6 +152,7 @@ sub check {
     score      => $response->{score},
     threshold  => $response->{threshold},
     version    => $version,
+    email      => $response_email,
 
     tests      => %test_score
                 ? \%test_score

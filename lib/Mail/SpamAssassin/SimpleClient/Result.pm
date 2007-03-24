@@ -98,6 +98,16 @@ sub test_scores {
   return %{ $self->{tests} };
 }
 
+=head2 email
+
+This method returns the email object included in the response.
+
+=cut
+
+sub email {
+  $_[0]->{response_email}
+}
+
 =head1 AUTHOR
 
 Ricardo SIGNES, C<< <rjbs@cpan.org> >>
