@@ -1,6 +1,9 @@
 Revision history for Mail-SpamAssassin-SimpleClient
 
-0.002     2007-03-23
+0.004     2007-0?-??
+          add email method to results
+
+0.003     2007-03-23
           refresh Module::Install
 
 0.001     2007-03-21
