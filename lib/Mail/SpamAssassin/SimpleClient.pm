@@ -138,11 +138,12 @@ sub check {
     my ($report) = ($response_email->parts)[0];
 
     my $past_header;
-    for my $line (split /\n/, $report->body) {
+    LINE: for my $line (split /\n/, $report->body) {
       next if not($past_header) and not($line =~ /^\s*---- -/);
       $past_header = 1, next if not $past_header;
 
       my ($score, $name) = $line =~ /\s*(-?[\d.]+)\s+(\S+)/;
+      next LINE unless defined $name;
       $test_score{ $name } = $score;
     }
   }
