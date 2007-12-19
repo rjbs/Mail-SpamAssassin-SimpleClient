@@ -20,3 +20,4 @@ ok(
   Mail::SpamAssassin::SimpleClient->new->check($email)->is_spam,
   "yup, this message is spam",
 );
+

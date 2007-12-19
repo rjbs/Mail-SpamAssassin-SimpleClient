@@ -11,13 +11,13 @@ Mail::SpamAssassin::SimpleClient::Result - the results of checking a message
 
 =head1 VERSION
 
-version 0.004
+version 0.006
 
  $Id$
 
 =cut
 
-our $VERSION = '0.004';
+our $VERSION = '0.006';
 
 =head1 METHODS
 
@@ -105,7 +105,7 @@ This method returns the email object included in the response.
 =cut
 
 sub email {
-  $_[0]->{response_email}
+  $_[0]->{email}
 }
 
 =head1 AUTHOR

@@ -1,5 +1,8 @@
 Revision history for Mail-SpamAssassin-SimpleClient
 
+0.006     2007-12-19
+          make the $result->email method, uh, work
+
 0.005     2007-09-17
           fix bugs exposed by new Test::More
 
