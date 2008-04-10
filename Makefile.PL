@@ -11,4 +11,6 @@ version_from  ('lib/Mail/SpamAssassin/SimpleClient.pm');
 requires('Email::MIME'        => 1); # no idea what the minimum version is
 requires('Mail::SpamAssassin' => 3); # no idea what the minimum version is
 
+author_tests('xt');
+
 WriteAll();
