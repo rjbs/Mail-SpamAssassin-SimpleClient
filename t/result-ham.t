@@ -2,12 +2,13 @@
 use strict;
 use warnings;
 
-use Mail::SpamAssassin::SimpleClient;
-use Email::Simple;
 use Test::More;
 
 plan skip_all => "set PERL_SIMPLECLIENT_TEST to run these tests"
   unless $ENV{PERL_SIMPLECLIENT_TEST};
+
+require Mail::SpamAssassin::SimpleClient;
+require Email::Simple;
 
 plan 'no_plan';
 
