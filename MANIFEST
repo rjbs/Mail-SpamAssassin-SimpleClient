@@ -2,6 +2,7 @@ Changes
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
+inc/Module/Install/ExtraTests.pm
 inc/Module/Install/Fetch.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
@@ -16,7 +17,8 @@ META.yml
 README
 t/messages/not-spam.msg
 t/messages/spam.msg
-t/pod-coverage.t
-t/pod.t
+t/place-holder.t
 t/result-ham.t
 t/result-spam.t
+xt/release/pod-coverage.t
+xt/release/pod.t
