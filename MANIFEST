@@ -20,5 +20,5 @@ t/messages/spam.msg
 t/place-holder.t
 t/result-ham.t
 t/result-spam.t
-xt/pod-coverage.t
-xt/pod.t
+xt/release/pod-coverage.t
+xt/release/pod.t
