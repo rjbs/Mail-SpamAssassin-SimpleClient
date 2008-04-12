@@ -17,6 +17,7 @@ META.yml
 README
 t/messages/not-spam.msg
 t/messages/spam.msg
+t/place-holder.t
 t/result-ham.t
 t/result-spam.t
 xt/pod-coverage.t

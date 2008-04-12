@@ -1,5 +1,8 @@
 Revision history for Mail-SpamAssassin-SimpleClient
 
+0.008     2008-04-12
+          improve interaction with automated testers
+
 0.007     2008-04-09
           packaging fixes
 
