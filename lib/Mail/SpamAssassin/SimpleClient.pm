@@ -112,7 +112,8 @@ sub check {
 # X-Spam-Checker-Version: SpamAssassin 3.1.0 (2005-09-13) on emerald.pobox.com
 # X-Spam-Status: Yes, score=1000.8 required=5.0 tests=ENGLISH_UCE_SUBJECT,GTUBE,
 #   NO_REAL_NAME,NO_RECEIVED,NO_RELAYS autolearn=no version=3.1.0
-#   X-Spam-Level: **************************************************
+# X-Spam-Level: **************************************************
+# X-Spam-Report: *  1.4 NO_DNS_FOR_FROM DNS: Envelope sender has no MX or A DNS records *  0.0 MISSING_MID Missing Message-Id: header * -0.0 NO_RELAYS Informational: message was not relayed via SMTP
 
   # use Data::Dumper;
   # warn Dumper($response);
@@ -136,16 +137,26 @@ sub check {
   my %test_score;
 
   if ($response->{isspam} eq 'True') {
-    my ($report) = ($response_email->parts)[0];
+    # prefer the X-Spam-Report header before checking the body
+    my $report = $response_email->header('X-Spam-Report');
+    if( $report ) {
+        foreach my $report_part (split(/\s*\*\s*/, $report)) {
+            next unless $report_part;
+            my ($score, $name, $desc) = $report_part =~ /^(-?[\d.]+)\s+(\S+)\s+(.*)$/;
+            $test_score{ $name } = $score;
+        }
+    } else {
+      ($report) = ($response_email->parts)[0];
 
-    my $past_header;
-    LINE: for my $line (split /\n/, $report->body) {
-      next if not($past_header) and not($line =~ /^\s*---- -/);
-      $past_header = 1, next if not $past_header;
-
-      my ($score, $name) = $line =~ /\s*(-?[\d.]+)\s+(\S+)/;
-      next LINE unless defined $name;
-      $test_score{ $name } = $score;
+      my $past_header;
+      LINE: for my $line (split /\n/, $report->body) {
+        next if not($past_header) and not($line =~ /^\s*---- -/);
+        $past_header = 1, next if not $past_header;
+  
+        my ($score, $name) = $line =~ /\s*(-?[\d.]+)\s+(\S+)/;
+        next LINE unless defined $name;
+        $test_score{ $name } = $score;
+      }
     }
   }
 
