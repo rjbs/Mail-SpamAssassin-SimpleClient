@@ -98,6 +98,23 @@ sub test_scores {
   return %{ $self->{tests} };
 }
 
+=head2 test_descriptions
+
+  my %descriptions = $result->test_descriptions;
+
+This method returns a list of name/value pairs.  The values are the
+full description names for any tests run. Since non-spam reports do not
+elaborate on individual tests run, the description for each test on a
+non-spam result is undefined.
+
+=cut
+
+sub test_descriptions {
+  my ($self) = @_;
+
+  return %{ $self->{test_desc} };
+}
+
 =head2 email
 
 This method returns the email object included in the response.

@@ -21,8 +21,13 @@ my $result = Mail::SpamAssassin::SimpleClient->new->check($email);
 ok($result->is_spam, "yup, this message is spam");
 my @tests = $result->tests;
 ok(@tests, 'got a list of tests');
+
 my %scores = $result->test_scores;
 foreach my $test (@tests) {
   ok(defined $scores{$test}, "got a score for $test");
 }
 
+my %descriptions = $result->test_descriptions;
+foreach my $test (@tests) {
+  ok(defined $descriptions{$test}, "got a description for $test");
+}

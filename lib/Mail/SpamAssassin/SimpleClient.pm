@@ -134,7 +134,7 @@ sub check {
   # score
   # threshold
 
-  my %test_score;
+  my (%test_score, %test_desc);
 
   if ($response->{isspam} eq 'True') {
     # prefer the X-Spam-Report header before checking the body
@@ -144,6 +144,7 @@ sub check {
             next unless $report_part;
             my ($score, $name, $desc) = $report_part =~ /^(-?[\d.]+)\s+(\S+)\s+(.*)$/;
             $test_score{ $name } = $score;
+            $test_desc{ $name } = $desc;
         }
     } else {
       ($report) = ($response_email->parts)[0];
@@ -169,6 +170,9 @@ sub check {
 
     tests      => %test_score
                 ? \%test_score
+                : { map { $_ => undef } @tests },
+    test_desc  => %test_desc
+                ? \%test_desc
                 : { map { $_ => undef } @tests },
   });
 }
