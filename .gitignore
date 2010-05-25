@@ -1,0 +1,12 @@
+*~
+*.bak
+*.swo
+*.swp
+Makefile
+Mail-SpamAssassin-SimpleClient-*
+_build
+blib
+z-backup
+META.yml
+inc
+pm_to_blib
