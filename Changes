@@ -1,6 +1,6 @@
 Revision history for Mail-SpamAssassin-SimpleClient
 
-0.009     2010-06-10
+{{$NEXT}}
           prefer parsing X-Spam-Report header if present for determining scores
           for run tests - Michael Peters
 

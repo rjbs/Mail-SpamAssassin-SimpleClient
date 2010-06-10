@@ -1,33 +1,21 @@
 use strict;
 use warnings;
 use 5.006;
-
 package Mail::SpamAssassin::SimpleClient;
+# ABSTRACT: easy client to SpamAssassin's spamd
 
 use Carp ();
 use Email::MIME;
 use Mail::SpamAssassin::Client;
 use Mail::SpamAssassin::SimpleClient::Result;
 
-=head1 NAME
-
-Mail::SpamAssassin::SimpleClient - easy client to SpamAssassin's spamd
-
-=head1 VERSION
-
-version 0.009
-
- $Id$
-
-=cut
-
-our $VERSION = '0.009';
-
 =head1 SYNOPSIS
 
   my $spamc = Mail::SpamAssassin::Simpleclient->new;
 
   die "It's horrible, horrible spam!" if $spamc->check($message)->is_spam;
+
+=begin :prelude
 
 =head1 WARNING
 
@@ -37,6 +25,8 @@ This module is still in its infancy.  Its interface will probably change
 somewhat, especially if some changes are made to the spamd protocol to make
 this module awesomer.  Please don't rely on it.  Just play with it and try to
 help figure out how to make it great.
+
+=end :prelude
 
 =head1 DESCRIPTION
 
@@ -48,9 +38,7 @@ message against SpamAssassin from within a Perl program.
 This module provides a very simple (but also limited) interface to check mail
 against SpamAssassin.
 
-=head1 METHODS
-
-=head2 new
+=method new
 
   my $client = Mail::SpamAssassin::SimpleClient->new(\%arg);
 
@@ -78,7 +66,7 @@ sub new {
   bless $arg => $class;
 }
 
-=head2 check
+=method check
 
   my $result = $spamc->check($message);
 
@@ -183,23 +171,6 @@ Support spamd-less operation.
 
 Get the protocol to support "always rewrite" or another way to always get
 scores.
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs@cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.  I will be notified, and then you'll automatically be
-notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you may redistribute it and/or modify it
-under the same terms as Perl itself.
 
 =cut
 

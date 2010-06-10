@@ -1,27 +1,11 @@
 use strict;
 use warnings;
-
 package Mail::SpamAssassin::SimpleClient::Result;
+# ABSTRACT: the results of checking a message
 
 use Carp ();
 
-=head1 NAME
-
-Mail::SpamAssassin::SimpleClient::Result - the results of checking a message
-
-=head1 VERSION
-
-version 0.009
-
- $Id$
-
-=cut
-
-our $VERSION = '0.009';
-
-=head1 METHODS
-
-=head2 new
+=method new
 
   my $result = Mail::SpamAssassin::SimpleClient::Result->new(\%arg);
 
@@ -36,7 +20,7 @@ sub new {
   bless $arg => $class;
 }
 
-=head2 is_spam
+=method is_spam
 
 This method returns a true or false value indicating whether the checked
 message was found to be spam.
@@ -45,9 +29,9 @@ message was found to be spam.
 
 sub is_spam { $_[0]->{is_spam} }
 
-=head2 score
+=method score
 
-=head2 threshold
+=method threshold
 
 These methods return the message's score and the score that would be needed to
 classify the message as spam.
@@ -58,7 +42,7 @@ sub score { $_[0]->{score} }
 
 sub threshold { $_[0]->{threshold} }
 
-=head2 sa_version
+=method sa_version
 
 This method returns the version of SpamAssassin that checked the message.
 
@@ -66,7 +50,7 @@ This method returns the version of SpamAssassin that checked the message.
 
 sub sa_version { $_[0]->{version} }
 
-=head2 tests
+=method tests
 
   my @test_names = $result->tests;
 
@@ -81,7 +65,7 @@ sub tests {
   return keys %{ $self->{tests} };
 }
 
-=head2 test_scores
+=method test_scores
 
   my %test_score = $result->test_scores;
 
@@ -98,7 +82,7 @@ sub test_scores {
   return %{ $self->{tests} };
 }
 
-=head2 test_descriptions
+=method test_descriptions
 
   my %descriptions = $result->test_descriptions;
 
@@ -115,7 +99,7 @@ sub test_descriptions {
   return %{ $self->{test_desc} };
 }
 
-=head2 email
+=method email
 
 This method returns the email object included in the response.
 
@@ -124,25 +108,5 @@ This method returns the email object included in the response.
 sub email {
   $_[0]->{email}
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs@cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.  I will be notified, and then you'll automatically be
-notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you may redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut
-
 
 1;
