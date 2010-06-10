@@ -1,7 +1,8 @@
 Revision history for Mail-SpamAssassin-SimpleClient
 
-next      date
-          prefer parsing X-Spam-Report header if present for determining scores for run tests - Michael Peters
+0.009     2010-06-10
+          prefer parsing X-Spam-Report header if present for determining scores
+          for run tests - Michael Peters
 
 0.008     2008-04-12
           improve interaction with automated testers

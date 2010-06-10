@@ -15,13 +15,13 @@ Mail::SpamAssassin::SimpleClient - easy client to SpamAssassin's spamd
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
  $Id$
 
 =cut
 
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 
 =head1 SYNOPSIS
 
